@@ -24,5 +24,7 @@ Face recognition program using OpenCv
 
    To recognize faces run detect.py program.Here you can label the faces using ids.
    
+#Reference : [The Codacus](https://thecodacus.com/)
+   
  
 
