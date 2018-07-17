@@ -20,8 +20,9 @@ Face recognition program using OpenCv
 
    In order to train data create a folder called "recognizer" and execute trainer.py
    
-  
+## Recognize Faces
+
+   To recognize faces run detect.py program.Here you can label the faces using ids.
+   
  
- 
- ### To be continued
 
