@@ -18,7 +18,7 @@ Face recognition program using OpenCv
    
 ## Train Data
 
-   In order train data create a folder called "recognizer" and execute trainer.py
+   In order to train data create a folder called "recognizer" and execute trainer.py
    
   
  
