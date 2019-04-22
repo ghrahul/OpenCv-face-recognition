@@ -9,7 +9,7 @@ import os
 import cv2
 import numpy as np
 from PIL import Image
-recognizer =  cv2.createLBPHFaceRecognizer()
+recognizer = cv2.face.LBPHFaceRecognizer_create()
 path = 'dataset'
 def ImageId(path):
     imagepath = [os.path.join(path,f) for f in os.listdir(path)]

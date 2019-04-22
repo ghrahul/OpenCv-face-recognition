@@ -1,35 +1,44 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jul 17 20:05:02 2018
-
-@author: rahul
-"""
+#changes for python3 
 
 import cv2
 import numpy as np
-facedetect = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+import os 
+
+
+recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer.read('recognizer/trainingData.yml')
+cascadePath = "haarcascade_frontalface_default.xml"
+faceCascade = cv2.CascadeClassifier(cascadePath)
+font = cv2.FONT_HERSHEY_SIMPLEX
 cam = cv2.VideoCapture(0)
-recognizer =  cv2.createLBPHFaceRecognizer()
-recognizer.load("recognizer/trainingData.yml")  
-id = 0
-font = cv2.cv.InitFont(cv2.cv.CV_FONT_HERSHEY_COMPLEX_SMALL,3,1,0,3)
-while(True):
-    ret,img = cam.read()
-    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    faces = facedetect.detectMultiScale(gray,1.3,5)
+
+while True:
+    ret, im =cam.read()
+    gray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
+    faces = faceCascade.detectMultiScale(gray, 1.2,5)
+
+  
     for(x,y,w,h) in faces:
-        cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
-        id,conf = recognizer.predict(gray[y:y+h,x:x+w])
-        if(id==1):
-            id = "Rahul"
-        elif(id==2):
-            id = "Narendra Modi"
+
+       
+        cv2.rectangle(im, (x-20,y-20), (x+w+20,y+h+20), (0,255,0), 4)
+        Id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
+        if(Id == 1):
+            Id = "Siddhant {0:.2f}%".format(round(100 - confidence, 2))
+        #elif(Id == 2):
+            #Id = "Sahil {0:.2f}%".format(round(100 - confidence, 2))
+        elif(Id == 2):
+            Id = "Rahul {0:.2f}%".format(round(100 - confidence, 2))
         else:
-            id = "unknown"
-        cv2.cv.PutText(cv2.cv.fromarray(img),str(id),(x,y+h),font,255)
-    cv2.imshow("Face",img)
-    if(cv2.waitKey(1) == ord('q')):
-        break
+            Id = "Unknown"
         
+        
+        cv2.rectangle(im, (x-22,y-90), (x+w+22, y-22), (0,255,0), -1)
+        cv2.putText(im, str(Id), (x,y-40), font, 1, (255,255,255), 3)
+    cv2.imshow('im',im) 
+    if cv2.waitKey(10) & 0xFF == ord('q'):
+        break
+
+
 cam.release()
 cv2.destroyAllWindows()

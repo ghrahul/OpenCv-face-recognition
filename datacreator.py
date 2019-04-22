@@ -22,7 +22,7 @@ while(True):
         cv2.waitKey(100)
         
     cv2.imshow("Face",img)
-    if(samplenum>20):
+    if(samplenum>100):
         break
     
 cam.release()
